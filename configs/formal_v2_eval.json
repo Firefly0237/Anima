@@ -1,0 +1,16 @@
+{
+  "baseline_arm": "SFT",
+  "claim_boundary": [
+    "Formal-v2 is eval-first and reuses formal-v1 adapters.",
+    "No broader SFT/DPO/GRPO training is started by this config.",
+    "BaichuanCharRM is scalar-only unless full CharacterEval metrics are implemented.",
+    "Output-contract health is validity, not quality."
+  ],
+  "expected_axes": [
+    "heldout",
+    "charrm_scalar",
+    "socialbench",
+    "ceval"
+  ],
+  "run_name": "formal_v2_eval_first"
+}
