@@ -1,0 +1,16 @@
+[project]
+name = "anima"
+version = "0.0.1"
+description = "Character-R1/CRPO-style verifiable role-reward GRPO for a Chinese role-play NPC (Qwen2.5-3B)."
+requires-python = ">=3.11"
+
+[project.optional-dependencies]
+test = [
+    "pytest>=8.0",
+]
+dev = [
+    "pytest>=8.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
