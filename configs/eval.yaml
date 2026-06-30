@@ -1,0 +1,151 @@
+{
+  "run_name": "w4_four_arm_eval",
+  "stage": "w4_day1_result_aggregation",
+  "allow_missing_inputs": true,
+  "baseline_arm": "SFT",
+  "base_model": "Qwen/Qwen2.5-3B-Instruct",
+  "outputs": {
+    "markdown": "/home/featurize/work/anima/eval_out/w4_four_arm_results.md",
+    "json": "/home/featurize/work/anima/eval_out/w4_four_arm_summary.json"
+  },
+  "arms": [
+    {
+      "name": "Base",
+      "role": "base_instruct_reference",
+      "model_name_or_path": "Qwen/Qwen2.5-3B-Instruct",
+      "adapter_path": null,
+      "notes": "No LoRA adapter; base Qwen2.5-3B-Instruct comparison arm."
+    },
+    {
+      "name": "SFT",
+      "role": "warm_start_ablation",
+      "model_name_or_path": "Qwen/Qwen2.5-3B-Instruct",
+      "adapter_path": "/home/featurize/work/anima/models/w3_sft_qwen25_3b_rolebench_smoke64_v4stop",
+      "notes": "W3 selected SFT adapter; deliberate warm-start/ablation arm, not a Character-R1 claim."
+    },
+    {
+      "name": "DPO",
+      "role": "matched_reward_independent_comparison",
+      "model_name_or_path": "Qwen/Qwen2.5-3B-Instruct",
+      "adapter_path": "/home/featurize/work/anima/models/w4_dpo_qwen25_3b_rolebench239_from_sft_v4stop",
+      "notes": "W4 planned DPO arm; train on matched, reward-independent pairs and disclose any budget mismatch."
+    },
+    {
+      "name": "GRPO",
+      "role": "rlvr_route_proof_candidate",
+      "model_name_or_path": "Qwen/Qwen2.5-3B-Instruct",
+      "adapter_path": "/home/featurize/work/anima/models/w3_grpo_qwen25_3b_rolebench239_from_sft_v4stop_beta005_len192_route",
+      "notes": "W3 selected GRPO route-proof adapter: beta=0.05, len192, 239 rows; not a quality-win claim."
+    }
+  ],
+  "w3_selected_adapters": {
+    "sft": "/home/featurize/work/anima/models/w3_sft_qwen25_3b_rolebench_smoke64_v4stop",
+    "grpo": "/home/featurize/work/anima/models/w3_grpo_qwen25_3b_rolebench239_from_sft_v4stop_beta005_len192_route"
+  },
+  "axes": [
+    {
+      "name": "charactereval",
+      "label": "CharacterEval / BaichuanCharRM",
+      "score_fields": [
+        "charactereval.score",
+        "score"
+      ],
+      "status_fields": [
+        "charactereval.status",
+        "status"
+      ],
+      "future_metrics": [
+        "fluency",
+        "coherency",
+        "consistency",
+        "knowledge_exposure",
+        "knowledge_accuracy",
+        "knowledge_hallucination",
+        "persona_behavior",
+        "persona_utterance",
+        "human_likeness",
+        "communication_skills",
+        "expression_diversity",
+        "empathy",
+        "mbti_accuracy"
+      ],
+      "inputs": {
+        "Base": [],
+        "SFT": [
+          "/home/featurize/work/anima/eval_out/w3_route/sft_v4_charrm_scores_20.jsonl"
+        ],
+        "DPO": [],
+        "GRPO": [
+          "/home/featurize/work/anima/eval_out/w3_route/grpo_v4_beta005_239_charrm_scores_20.jsonl"
+        ]
+      }
+    },
+    {
+      "name": "heldout",
+      "label": "Held-out characters",
+      "score_fields": [
+        "heldout.score",
+        "score",
+        "accuracy"
+      ],
+      "status_fields": [
+        "heldout.status",
+        "status"
+      ],
+      "inputs": {
+        "Base": [],
+        "SFT": [],
+        "DPO": [],
+        "GRPO": []
+      }
+    },
+    {
+      "name": "socialbench",
+      "label": "SocialBench MCQ",
+      "score_fields": [
+        "socialbench.accuracy",
+        "accuracy",
+        "score"
+      ],
+      "status_fields": [
+        "socialbench.status",
+        "status"
+      ],
+      "inputs": {
+        "Base": [],
+        "SFT": [],
+        "DPO": [],
+        "GRPO": []
+      }
+    },
+    {
+      "name": "ceval",
+      "label": "C-Eval regression",
+      "score_fields": [
+        "ceval.accuracy",
+        "accuracy",
+        "score"
+      ],
+      "status_fields": [
+        "ceval.status",
+        "status"
+      ],
+      "inputs": {
+        "Base": [],
+        "SFT": [],
+        "DPO": [],
+        "GRPO": []
+      }
+    }
+  ],
+  "caveats": [
+    "W3 was an execution/eval-plumbing pass, not a GRPO quality win.",
+    "The 20-row W3 CharacterEval smoke favored SFT on BaichuanCharRM mean while GRPO improved format; W4 must broaden leakage-aware evaluation before any headline claim.",
+    "Original W2 1k data gate remains deferred/open; disclose this beside W4 results until closed."
+  ],
+  "claim_guardrails": [
+    "Do not claim GRPO wins from the W3 smoke.",
+    "Report deltas versus SFT/Base only after matched W4 axes are populated.",
+    "DPO must remain matched and reward-independent; disclose any step/token budget mismatch."
+  ]
+}
