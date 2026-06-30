@@ -1,0 +1,14 @@
+# anima-train env — build FRESH on Featurize; do NOT use the preinstalled torch 2.2.2.
+# Pin exact versions in W1 after confirming Unsloth/TRL/vLLM compatibility.
+torch>=2.4            # NOT 2.2.2 (too old for the modern Qwen2.5 GRPO path)
+transformers>=4.51
+trl
+unsloth
+peft
+vllm                 # match the torch actually installed
+bitsandbytes
+sacrebleu            # chrF / tokenize="zh"
+datasets
+wandb
+pydantic
+# BaichuanCharRM scorer needs a SEPARATE env (anima-rm-eval): transformers==4.30.2, trust_remote_code, bitsandbytes(nf4)
