@@ -1,0 +1,29 @@
+{
+  "_invariants": {
+    "cross_split_dedup": "Exact/normalized near-dup between reward and eval_heldout must report ZERO surviving collisions",
+    "disjoint": [
+      "sft∩reward=∅",
+      "sft∩eval_heldout=∅",
+      "reward∩eval_heldout=∅",
+      "source_work is disjoint across all splits"
+    ],
+    "note": "Small example split. 三月七 is eval_heldout/local-only; underlying HSR data stays out of repo."
+  },
+  "_source_work_by_character": {
+    "三月七": "HSR(local-only)",
+    "李白": "唐诗",
+    "林黛玉": "红楼梦",
+    "鲁智深": "水浒传"
+  },
+  "_split_unit": "source_work",
+  "eval_heldout": [
+    "三月七",
+    "鲁智深"
+  ],
+  "reward": [
+    "李白"
+  ],
+  "sft": [
+    "林黛玉"
+  ]
+}
