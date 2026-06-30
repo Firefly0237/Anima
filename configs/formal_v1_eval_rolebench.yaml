@@ -1,0 +1,24 @@
+{
+  "run_name": "formal_v1_rolebench_source_disjoint",
+  "allow_missing_inputs": false,
+  "baseline_arm": "SFT",
+  "arms": ["Base", "SFT", "DPO", "GRPO"],
+  "axes": [
+    {
+      "name": "heldout",
+      "score_fields": ["heldout.score"],
+      "status_fields": ["heldout.status"],
+      "inputs": {
+        "Base": ["/home/featurize/work/anima/formal_v1/manual/eval/base_heldout_scores.jsonl"],
+        "SFT": ["/home/featurize/work/anima/formal_v1/manual/eval/sft_heldout_scores.jsonl"],
+        "DPO": ["/home/featurize/work/anima/formal_v1/manual/eval/dpo_heldout_scores.jsonl"],
+        "GRPO": ["/home/featurize/work/anima/formal_v1/manual/eval/grpo_heldout_scores.jsonl"]
+      }
+    }
+  ],
+  "caveats": [
+    "Formal-v1 RoleBench source-disjoint gate; not the final multi-source leaderboard.",
+    "Deterministic bootstrap labels are not human-gold Character-R1 quality data.",
+    "Do not claim GRPO/SFT/DPO superiority unless held-out paired deltas support it."
+  ]
+}
