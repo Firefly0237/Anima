@@ -1,0 +1,29 @@
+# ANIMA — never commit weights, datasets, or HSR data
+work/
+*.safetensors
+*.gguf
+*.bin
+*.pt
+data/raw/
+data/hsr/
+runs/
+eval_out/
+wandb/
+__pycache__/
+*.pyc
+.venv/
+.env
+
+# --- not for the public repo (local-only / large / intermediate) ---
+backups/            # 4.2G local run archives (durable backups)
+space/              # HF Space deploy staging incl. 115M adapter weights
+_archive_local/     # archived intermediate artifacts
+.conda/             # local conda env (5.8G)
+.claude/
+.agents/
+.ssh/
+.w2_tmp/
+# docs/ kept private (interview-prep notes, internal process); only README is public.
+docs/
+AGENT.md
+DATA.md             # license info folded into README's Data & licenses section
